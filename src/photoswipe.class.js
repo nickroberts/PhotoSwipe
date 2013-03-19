@@ -173,6 +173,7 @@
 				doubleTapSpeed: 250,
 				margin: 20,
 				imageScaleMethod: 'fit', // Either "fit", "fitNoUpscale" or "zoom",
+                useCaptionAndDescriptionHeight: false,
 
 
 				// Toolbar
@@ -182,6 +183,7 @@
 				captionAndToolbarOpacity: 0.8,
 				captionAndToolbarShowEmptyCaptions: true,
 				getToolbar: PhotoSwipe.Toolbar.getToolbar,
+                keepCaptionAndDescriptionVisible: false,
 
 
 				// ZoomPanRotate

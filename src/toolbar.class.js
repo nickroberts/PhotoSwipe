@@ -209,18 +209,28 @@
          */
         resetPosition: function(){
 
-            var width, toolbarTop, captionTop, descriptionTop;
+            var width, toolbarTop, captionTop, descriptionTop, contentHeight, contentTop;
 
             if (this.settings.target === window){
                 if (this.settings.captionAndToolbarFlipPosition){
                     toolbarTop = Util.DOM.windowScrollTop();
                     descriptionTop = (Util.DOM.windowScrollTop() + Util.DOM.windowHeight()) - Util.DOM.height(this.descriptionEl);
                     captionTop = (Util.DOM.windowScrollTop() + Util.DOM.windowHeight()) - Util.DOM.height(this.descriptionEl) - Util.DOM.height(this.captionEl);
+
+                    //content area
+                    contentHeight = Util.DOM.windowHeight() - Util.DOM.height(this.captionEl) - Util.DOM.height(this.descriptionEl);
+                    contentTop = (Util.DOM.windowScrollTop() + Util.DOM.height(this.toolbarEl))  + 'px';
+
                 }
                 else {
-                    toolbarTop = (Util.DOM.windowScrollTop() + Util.DOM.windowHeight()) - Util.DOM.height(this.toolbarEl);
-                    descriptionTop = (Util.DOM.windowScrollTop() + Util.DOM.windowHeight()) - Util.DOM.height(this.descriptionEl) - Util.DOM.height(this.toolbarEl);
+                    descriptionTop = (Util.DOM.windowScrollTop() + Util.DOM.windowHeight()) - Util.DOM.height(this.descriptionEl);
+                    toolbarTop = (Util.DOM.windowScrollTop() + Util.DOM.windowHeight()) - Util.DOM.height(this.descriptionEl) - Util.DOM.height(this.toolbarEl);
                     captionTop = Util.DOM.windowScrollTop();
+
+                    //content area
+                    contentHeight = Util.DOM.windowHeight() - Util.DOM.height(this.captionEl) - Util.DOM.height(this.descriptionEl);
+                    contentTop = (Util.DOM.windowScrollTop() + Util.DOM.height(this.captionEl))  + 'px';
+
                 }
                 width = Util.DOM.windowWidth();
             }
@@ -252,7 +262,20 @@
                 top: descriptionTop + 'px',
                 width: width
             });
-        },
+
+            if(this.settings.useCaptionAndDescriptionHeight){
+                //content
+                Util.DOM.setStyle(Util.DOM.find('.' + PhotoSwipe.Carousel.CssClasses.carousel), {
+                    top: contentTop,
+                    height: contentHeight
+                });
+                // Set the height and width of the content el
+                Util.DOM.setStyle(Util.DOM.find('.' + PhotoSwipe.Carousel.CssClasses.content), {
+                    height: contentHeight
+                });
+            }
+
+            },
 
 
 
@@ -350,8 +373,11 @@
             });
 
             Util.Animation.fadeOut(this.toolbarEl, this.settings.fadeOutSpeed);
-            Util.Animation.fadeOut(this.captionEl, this.settings.fadeOutSpeed, this.fadeOutHandler);
-            Util.Animation.fadeOut(this.descriptionEl, this.settings.fadeOutSpeed);
+
+            if(!this.settings.keepCaptionAndDescriptionVisible) {
+                Util.Animation.fadeOut(this.captionEl, this.settings.fadeOutSpeed, this.fadeOutHandler);
+                Util.Animation.fadeOut(this.descriptionEl, this.settings.fadeOutSpeed);
+            }
 
             this.isVisible = false;
 
@@ -589,8 +615,10 @@
         onFadeOut: function(){
 
             Util.DOM.hide(this.toolbarEl);
-            Util.DOM.hide(this.captionEl);
-            Util.DOM.hide(this.descriptionEl);
+            if(!this.settings.keepCaptionAndDescriptionVisible){
+                Util.DOM.hide(this.captionEl);
+                Util.DOM.hide(this.descriptionEl);
+            }
 
             Util.Events.fire(this, {
                 type: PhotoSwipe.Toolbar.EventTypes.onHide,
