@@ -3,12 +3,12 @@
 // version: %%version%%
 
 (function(window, klass, Util){
-	
-	
+
+
 	Util.registerNamespace('Code.PhotoSwipe.Toolbar');
 	var PhotoSwipe = window.Code.PhotoSwipe;
-	
-	
+
+
 	PhotoSwipe.Toolbar.CssClasses = {
 		toolbar: 'ps-toolbar',
 		toolbarContent: 'ps-toolbar-content',
@@ -16,6 +16,8 @@
 		caption: 'ps-caption',
 		captionBottom: 'ps-caption-bottom',
 		captionContent: 'ps-caption-content',
+		description: 'ps-description',
+		descriptionContent: 'ps-description-content',
 		close: 'ps-toolbar-close',
 		play: 'ps-toolbar-play',
 		playDisabled: 'ps-toolbar-play-disabled',
@@ -24,9 +26,9 @@
 		next: 'ps-toolbar-next',
 		nextDisabled: 'ps-toolbar-next-disabled'
 	};
-	
-	
-	
+
+
+
 	PhotoSwipe.Toolbar.ToolbarAction = {
 		close: 'close',
 		play: 'play',
@@ -34,9 +36,9 @@
 		previous: 'previous',
 		none: 'none'
 	};
-	
-	
-	
+
+
+
 	PhotoSwipe.Toolbar.EventTypes = {
 		onTap: 'PhotoSwipeToolbarOnClick',
 		onBeforeShow: 'PhotoSwipeToolbarOnBeforeShow',
@@ -44,18 +46,18 @@
 		onBeforeHide: 'PhotoSwipeToolbarOnBeforeHide',
 		onHide: 'PhotoSwipeToolbarOnHide'
 	};
-	
-	
-	
+
+
+
 	PhotoSwipe.Toolbar.getToolbar = function(){
-		
+
 		return '<div class="' + PhotoSwipe.Toolbar.CssClasses.close + '"><div class="' + PhotoSwipe.Toolbar.CssClasses.toolbarContent + '"></div></div><div class="' + PhotoSwipe.Toolbar.CssClasses.play + '"><div class="' + PhotoSwipe.Toolbar.CssClasses.toolbarContent + '"></div></div><div class="' + PhotoSwipe.Toolbar.CssClasses.previous + '"><div class="' + PhotoSwipe.Toolbar.CssClasses.toolbarContent + '"></div></div><div class="' + PhotoSwipe.Toolbar.CssClasses.next + '"><div class="' + PhotoSwipe.Toolbar.CssClasses.toolbarContent + '"></div></div>';
-		
+
 	};
-	
+
 }
 (
-	window, 
-	window.klass, 
+	window,
+	window.klass,
 	window.Code.Util
 ));
